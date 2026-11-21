@@ -1,0 +1,52 @@
+{
+  "harness_controls": [
+    "validate_input",
+    "blind",
+    "refuse",
+    "log",
+    "escalate"
+  ],
+  "format_problems": [],
+  "entries": [
+    {
+      "control": "validate_input",
+      "principle": "Safety and security",
+      "principle_source": "UNESCO Recommendation on the Ethics of Artificial Intelligence (adopted 23 November 2021), section III.2, para. 27",
+      "instrument": "Law of the Republic of Kazakhstan No. 230-VIII of 17 November 2025 'On Artificial Intelligence' (as amended)",
+      "provision": "Art. 15(2)(2): owners and possessors of an AI system must take measures for its safety and reliability, including protection against failures",
+      "why_here": "The bare pipeline screened a profile with GPA 9.9 and exam score -5 like any other (Part 4), so impossible values are refused before they reach the model and are logged as invalid_input."
+    },
+    {
+      "control": "blind",
+      "principle": "Fairness and non-discrimination",
+      "principle_source": "UNESCO Recommendation on the Ethics of Artificial Intelligence (2021), section III.2, paras. 28-30",
+      "instrument": "Law of the Republic of Kazakhstan No. 230-VIII of 17 November 2025 'On Artificial Intelligence'; Constitution of the Republic of Kazakhstan (adopted by referendum 15 March 2026)",
+      "provision": "AI Law Art. 6 (AI systems must exclude discrimination on grounds incl. origin, sex, nationality, language); Constitution Art. 16(2) (no discrimination by origin, sex, nationality, language, place of residence); data minimisation: Law No. 94-V 'On Personal Data and Their Protection' Art. 7(9)",
+      "why_here": "Part 1 found no decision effect clear of its floor, but name-gender gave 4/40 flips all against male-coded names and university tier a consistent score gap of +2.5 [+1.1, +4.1] for flagship (sign p = 0.002); neither field is a merit criterion, so the model is not shown them."
+    },
+    {
+      "control": "refuse",
+      "principle": "Right to privacy and data protection",
+      "principle_source": "UNESCO Recommendation on the Ethics of Artificial Intelligence (2021), section III.2, paras. 32-34",
+      "instrument": "Law of the Republic of Kazakhstan No. 94-V of 21 May 2013 'On Personal Data and Their Protection' (as amended)",
+      "provision": "Art. 7(1) (consent of the subject or the legal representative), Art. 7(8) (processing limited to specific, predetermined, lawful purposes), Art. 19-1(1) (automated processing that changes a subject's rights only with consent); prompt injection: AI Law No. 230-VIII Art. 15(2)(2)",
+      "why_here": "The bare pipeline has no refusal path: in Part 4 it screened a purpose 'rank_by_ethnicity', a 17-year-old, an applicant without consent and a name that was an instruction to the model, so these are refused before any model call."
+    },
+    {
+      "control": "log",
+      "principle": "Responsibility and accountability",
+      "principle_source": "UNESCO Recommendation on the Ethics of Artificial Intelligence (2021), section III.2, paras. 42-43",
+      "instrument": "Law of the Republic of Kazakhstan No. 230-VIII of 17 November 2025 'On Artificial Intelligence'; Law No. 94-V of 21 May 2013 'On Personal Data and Their Protection'",
+      "provision": "AI Law Art. 15(2)(3) (keep documentation on the AI system); Law No. 94-V Art. 22(1)(5) (registration and recording of actions) and Art. 19-1(2) (explain the automated procedure to the subject); benchmark only, not binding here: EU Regulation 2024/1689 (AI Act) Art. 12(1)",
+      "why_here": "The bare pipeline turned unparseable replies into silent rejects and kept no trace; with flips of 2-4 pairs per attribute that cannot be told from chance, only a per-decision record (input hash, fields shown and withheld, raw reply, reason code) lets a reviewer later reconstruct and contest a single decision."
+    },
+    {
+      "control": "escalate",
+      "principle": "Human oversight and determination",
+      "principle_source": "UNESCO Recommendation on the Ethics of Artificial Intelligence (2021), section III.2, paras. 35-36",
+      "instrument": "Law of the Republic of Kazakhstan No. 94-V of 21 May 2013 'On Personal Data and Their Protection'; Law No. 230-VIII of 17 November 2025 'On Artificial Intelligence'",
+      "provision": "Law No. 94-V Art. 19-1(2)-(3) (right to object to automated processing; objection reviewed within three working days); AI Law Art. 8(1) (continuous human control) and Art. 7(2); benchmark only, not binding here: EU Regulation 2024/1689 Art. 14(1) and 14(4)(d)",
+      "why_here": "Scores cluster at the decision boundary (the 40-49 bucket held 33 rejects and 31 shortlists, score 45 occurs on both sides), so the band (45, 50) and my own rule send the contested cases, low-income rejects and reasons that cite a withheld trait to a person instead of the model."
+    }
+  ]
+}
